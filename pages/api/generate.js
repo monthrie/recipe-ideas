@@ -29,7 +29,7 @@ export default async function (req, res) {
       messages: [
         {
           role: 'system',
-          content: 'You are an assistant that suggests 3 meal ideas based on a given list of ingredients. The meal ideas vary based on the amount of time and effort required to prepare them.'
+          content: 'You are an assistant that suggests 3 meal ideas based on a given list of ingredients. You give only a one line descriptive title but not the whole recipe. The meal ideas vary based on the amount of time and effort required to prepare them. You can assume that user has some very basic ingredients like salt, pepper, oil, etc. Include in brackets the approximate amount of time each meal will take to prepare.'
         },
         {
           role: 'user',
