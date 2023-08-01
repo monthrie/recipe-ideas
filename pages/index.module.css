@@ -13,6 +13,15 @@
   font-weight: bold;
   font-style: normal;
 }
+.smallText {
+  font-size: 0.8em;
+  font-weight: normal;
+}
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 .main,
 .main input {
   font-size: 16px;

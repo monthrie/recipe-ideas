@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getEffortDescriptor } from './utils';
 
 export default async function (req, res) {
   if (!process.env.OPENAI_API_KEY) {
@@ -10,14 +9,13 @@ export default async function (req, res) {
     });
     return;
   }
- 
-  const ingredients = req.body.ingredients || [];
-  const effortLevel = Number(req.body.effortLevel) || 1;
 
-  if (ingredients.length === 0) {
+  const mealTitle = req.body.mealTitle;
+  
+  if (!mealTitle) {
     res.status(400).json({
       error: {
-        message: "Please enter a valid list of ingredients",
+        message: "Please provide a meal title",
       }
     });
     return;
@@ -30,14 +28,14 @@ export default async function (req, res) {
       messages: [
         {
           role: 'system',
-          content: 'You are an assistant that suggests 3 meal ideas based on a given list of ingredients. You give only a one line descriptive title but not the whole recipe. The meal ideas vary based on the amount of time and effort required to prepare them. You can assume that user has some very basic ingredients like salt, pepper, oil, etc. Include in brackets the approximate amount of time each meal will take to prepare'
+          content: 'You are a helpful assistant that provides full recipes based on given meal titles. No need for an introduction, just start with the ingredients.'
         },
         {
           role: 'user',
-          content: `I have these ingredients: ${ingredients.join(', ')}. I'm looking for meal ideas that are ${getEffortDescriptor(effortLevel)}.`
+          content: `Give me the full recipe for this meal: ${mealTitle}`
         }
       ],
-      max_tokens: 200,
+      max_tokens: 450,
     }, {
       headers: {
         'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
@@ -49,10 +47,10 @@ export default async function (req, res) {
 
     if (!openaiResponse.data || !openaiResponse.data.choices) {
       throw new Error('Unexpected response from OpenAI API');
-  }
+    }
       
-  const result = openaiResponse.data.choices[0].message.content;
-  res.status(200).json({ result: result });
+    const result = openaiResponse.data.choices[0].message.content;
+    res.status(200).json({ result: result });
   } catch(error) {
     // Consider adjusting the error handling logic for your use case
     if (error.response) {
