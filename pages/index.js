@@ -100,15 +100,18 @@ export default function Home() {
         </div>
         <div className={styles.result}>
   {
-        result && result.split('\n').map((rec, index) => rec && (
-          <div key={index}>
-            <p>{rec}</p>
-            <button onClick={() => fetchRecipe(rec)}>Get Recipe</button>
-            {recipes[rec] && recipes[rec].split('\n').map((line, lineIndex) => <p key={lineIndex}>{line}</p>)}
-          </div>
-        ))
-      }
-       </div>
+          result && result.split('\n').map((rec, index) => rec && (
+            <div key={index}>
+              <div className={styles.titleContainer}>
+                <p>{rec}</p>
+                <button onClick={() => fetchRecipe(rec)}>Get Recipe</button>
+              </div>
+              {recipes[rec] && recipes[rec].split('\n').map((line, lineIndex) => <p className={styles.smallText} key={lineIndex}>{line}</p>)}
+            </div>
+          ))
+        }
+      </div>
+
       </main>
     </div>
   );
