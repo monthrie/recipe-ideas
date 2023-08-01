@@ -10,13 +10,13 @@ export default async function (req, res) {
     return;
   }
  
-  const movies = req.body.movies || [];
-  const uniqueness = Number(req.body.uniqueness) || 1;
+  const ingredients = req.body.ingredients || [];
+  const effortLevel = Number(req.body.effortLevel) || 1;
 
-  if (movies.length === 0) {
+  if (ingredients.length === 0) {
     res.status(400).json({
       error: {
-        message: "Please enter a valid list of movie titles",
+        message: "Please enter a valid list of ingredients",
       }
     });
     return;
@@ -29,11 +29,11 @@ export default async function (req, res) {
       messages: [
         {
           role: 'system',
-          content: 'You are an assistant that suggests 5 movies based on a given list of favorite movies. Your introduction is just "Here are 5 recomendations based on your favourites:". You give a concise one sentence description of each movie and include the year it was made in brackets after the title.'
+          content: 'You are an assistant that suggests 3 meal ideas based on a given list of ingredients. The meal ideas vary based on the amount of time and effort required to prepare them.'
         },
         {
           role: 'user',
-          content: `My favorite movies are: ${movies.join(', ')}. I'm looking for recommendations that are ${getUniquenessDescriptor(uniqueness)}.`
+          content: `I have these ingredients: ${ingredients.join(', ')}. I'm looking for meal ideas that are ${getEffortDescriptor(effortLevel)}.`
         }
       ],
       max_tokens: 200,
@@ -67,13 +67,13 @@ export default async function (req, res) {
     }
   }
 }
-function getUniquenessDescriptor(level) {
-  switch (level) {
-    case 1: return "very popular and mainstream";
-    case 2: return "fairly popular";
-    case 3: return "a mix of popular and less known";
-    case 4: return "fairly unique and lesser-known";
-    case 5: return "very obscure, and almost unknown";
-    default: return "a mix of popular and less known";
+function getEffortDescriptor(effortLevel) {
+  switch (effortLevel) {
+    case 1: return "quick and easy to prepare";
+    case 2: return "fairly quick to prepare";
+    case 3: return "of moderate difficulty";
+    case 4: return "requiring some effort";
+    case 5: return "requiring a lot of time and effort";
+    default: return "of moderate difficulty";
   }
 }
