@@ -7,6 +7,8 @@ export default function Home() {
   const [ingredientInput, setIngredientInput] = useState("");
   const [effortLevel, setEffortLevel] = useState(1); 
   const [result, setResult] = useState();
+  const [recipes, setRecipes] = useState({});
+
  
   async function onSubmit(event) {
     event.preventDefault();
@@ -30,6 +32,32 @@ export default function Home() {
       setResult(data.result);
       // Cleared the movie input field after submitting
       setIngredientInput("");
+    } catch(error) {
+      console.error(error);
+      alert(error.message);
+    }
+  }
+
+  async function fetchRecipe(mealTitle) {
+    try {
+      const response = await fetch("/api/recipe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ mealTitle }),
+      });
+ 
+      const data = await response.json();
+      if (response.status !== 200) {
+        throw data.error || new Error(`Request failed with status ${response.status}`);
+      }
+
+      // Add the new recipe to the recipes state variable
+      setRecipes((prevRecipes) => ({
+        ...prevRecipes,
+        [mealTitle]: data.result,
+      }));
     } catch(error) {
       console.error(error);
       alert(error.message);
@@ -71,8 +99,16 @@ export default function Home() {
         <span style={{ marginLeft: '10px' }}>Time and effort required</span>
         </div>
         <div className={styles.result}>
-        {result && result.split('\n').map((rec, index) => rec && <p key={index}>{rec}</p>)}
-         </div>
+  {
+        result && result.split('\n').map((rec, index) => rec && (
+          <div key={index}>
+            <p>{rec}</p>
+            <button onClick={() => fetchRecipe(rec)}>Get Recipe</button>
+            {recipes[rec] && recipes[rec].split('\n').map((line, lineIndex) => <p key={lineIndex}>{line}</p>)}
+          </div>
+        ))
+      }
+       </div>
       </main>
     </div>
   );
