@@ -8,6 +8,7 @@ export default function Home() {
   const [effortLevel, setEffortLevel] = useState(1); 
   const [result, setResult] = useState();
   const [recipes, setRecipes] = useState({});
+  const [dietaryRequirements, setDietaryRequirements] = useState("");
 
  
   async function onSubmit(event) {
@@ -22,6 +23,13 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ ingredients: ingredientArray, effortLevel: effortLevel }),
+        //
+        body: JSON.stringify({ 
+          ingredients: ingredientArray, 
+          effortLevel: effortLevel, 
+          dietaryRequirements: dietaryRequirements 
+        })
+      
       });
 
       const data = await response.json();
@@ -86,6 +94,13 @@ export default function Home() {
         />
           <input type="submit" value="Generate Recommendations" />
         </form>
+        <label>
+        <input 
+          type="text" 
+          value={dietaryRequirements} 
+          onChange={(event) => setDietaryRequirements(event.target.value)} 
+        />
+</label>
         <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center' }}>
         <span style={{ marginRight: '10px' }}>Quick and easy</span>
         <input
