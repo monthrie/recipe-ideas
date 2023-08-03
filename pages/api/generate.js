@@ -13,6 +13,8 @@ export default async function (req, res) {
  
   const ingredients = req.body.ingredients || [];
   const effortLevel = Number(req.body.effortLevel) || 1;
+  const dietaryRequirements = req.body.dietaryRequirements || "";
+
 
   if (ingredients.length === 0) {
     res.status(400).json({
@@ -30,7 +32,7 @@ export default async function (req, res) {
       messages: [
         {
           role: 'system',
-          content: 'You are an assistant that suggests 3 meal ideas based on a given list of ingredients. You give only a one line descriptive title but not the whole recipe. The meal ideas vary based on the amount of time and effort required to prepare them. You can assume that user has some very basic ingredients like salt, pepper, oil, etc. Include in brackets the approximate amount of time each meal will take to prepare'
+          content: `You are an assistant that suggests 3 meal ideas based on a given list of ingredients and specific dietary requirements. You give only a one line descriptive title but not the whole recipe. The meal ideas vary based on the amount of effort required to prepare them. The user has these ingredients at their disposal: ${ingredients.join(', ')}. They are looking for meals that are ${getEffortDescriptor(effortLevel)} and meet these dietary requirements: ${dietaryRequirements}. The user probably has some other basics as well.`
         },
         {
           role: 'user',
