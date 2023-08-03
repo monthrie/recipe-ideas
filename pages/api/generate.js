@@ -32,7 +32,7 @@ export default async function (req, res) {
       messages: [
         {
           role: 'system',
-          content: `You are an assistant that suggests 3 meal ideas based on a given list of ingredients and specific dietary requirements. You give only a one line descriptive title but not the whole recipe. The meal ideas vary based on the amount of effort required to prepare them. The user has these ingredients at their disposal: ${ingredients.join(', ')}. They are looking for meals that are ${getEffortDescriptor(effortLevel)} and meet these dietary requirements: ${dietaryRequirements}. The user probably has some other basics as well.`
+          content: `You are an assistant that suggests 3 meal ideas based on a given list of ingredients and specific dietary requirements. Do not give any introduction in your response. You give only a one line descriptive title for each meal but not the whole recipe. The meal ideas vary based on the amount of effort required to prepare them. The user has these ingredients at their disposal: ${ingredients.join(', ')}. They are looking for meals that are ${getEffortDescriptor(effortLevel)} and meet these dietary requirements: ${dietaryRequirements}. The user probably has some other basics as well.`
         },
         {
           role: 'user',
