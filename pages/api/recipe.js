@@ -28,7 +28,7 @@ export default async function (req, res) {
       messages: [
         {
           role: 'system',
-          content: 'You are a helpful assistant that provides full recipes based on given meal titles. No need for an introduction, just start with the ingredients. Keep your response concise and within the 500 token limit'
+          content: 'You are a helpful assistant that provides full recipes based on given meal titles. No need for an introduction, just start with "Ingredients:". Put a new line, an elipsis and another new line underneath the end of the ingredient list to make a bigger gap between the ingredients and the instructions.  Keep your response concise and within the 500 token limit. Put one asterisc on either side of the words "ingredients" and "instructions" to make them bold.'
         },
         {
           role: 'user',

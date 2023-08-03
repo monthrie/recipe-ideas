@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+
 @font-face {
   font-family: "ColfaxAI";
   src: url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff2)
@@ -24,6 +27,7 @@
 }
 .main {
   margin-left: 50px;
+  margin-right: 50px;
 }
 
 .main input {
