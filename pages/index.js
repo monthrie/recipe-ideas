@@ -75,12 +75,12 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Recipe Ideas Engine</title>
+        <title>Meal Ideas Engine</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
   
       <main className={styles.main}>
-        <h3>Recipe Ideas Engine</h3>
+        <h3>Meal Ideas Engine</h3>
         <form onSubmit={onSubmit}>
           <input
             type="text"
