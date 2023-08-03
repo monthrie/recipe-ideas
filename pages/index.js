@@ -72,36 +72,42 @@ export default function Home() {
     }
   }
 
-  console.log(result); // Add this line
+  console.log(result); 
    
    
   return (
     <div>
       <Head>
-        <title>OpenAI Quickstart</title>
+        <title>Recipe Ideas Engine</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
   
       <main className={styles.main}>
         <h3>Recipe Ideas</h3>
         <form onSubmit={onSubmit}>
-        + <input
-          type="text"
-          name="ingredients"
-          placeholder="Enter a list of ingredients"
-          value={ingredientInput}
-          onChange={(e) => setIngredientInput(e.target.value)}
-        />
-          <input type="submit" value="Generate Recommendations" />
+          <input
+            type="text"
+            name="ingredients"
+            placeholder="Some ingredients you want to use"
+            value={ingredientInput}
+            onChange={(e) => setIngredientInput(e.target.value)}
+          />
+
+      
+  
+          <label style={{ marginTop: '30px' }}>
+        
+            <input 
+              type="text" 
+              value={dietaryRequirements} 
+              placeholder="Dietary requirements"
+              onChange={(event) => setDietaryRequirements(event.target.value)} 
+            />
+          </label>
+          <input type="submit" value="Generate Meal Ideas" style={{ marginTop: '20px' }} />
         </form>
-        <label>
-        <input 
-          type="text" 
-          value={dietaryRequirements} 
-          onChange={(event) => setDietaryRequirements(event.target.value)} 
-        />
-</label>
-        <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center' }}>
+      
+        <div style={{ marginTop: '40px', display: 'flex', alignItems: 'center' }}>
         <span style={{ marginRight: '10px' }}>Quick and easy</span>
         <input
           type="range"
@@ -111,7 +117,7 @@ export default function Home() {
           value={effortLevel}
           onChange={(e) => setEffortLevel(e.target.value)}
         />
-        <span style={{ marginLeft: '10px' }}>Time and effort required</span>
+        <span style={{ marginLeft: '10px' }}>More time and effort</span>
         </div>
         <div className={styles.result}>
   {

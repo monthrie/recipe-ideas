@@ -28,14 +28,14 @@ export default async function (req, res) {
       messages: [
         {
           role: 'system',
-          content: 'You are a helpful assistant that provides full recipes based on given meal titles. No need for an introduction, just start with the ingredients.'
+          content: 'You are a helpful assistant that provides full recipes based on given meal titles. No need for an introduction, just start with the ingredients. Keep your response concise and within the 500 token limit'
         },
         {
           role: 'user',
-          content: `Give me the full recipe for this meal: ${mealTitle}`
+          content: `Give me the full recipe for this meal: ${mealTitle}. Include a recommendation for wine pairing.`
         }
       ],
-      max_tokens: 450,
+      max_tokens: 500,
     }, {
       headers: {
         'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
